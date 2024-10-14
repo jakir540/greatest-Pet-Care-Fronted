@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import LatestBlog from "../../components/pages/home/LatestBlog";
+import CreateComment from "../../components/CreateComment";
 
 const BlogDetails = async ({ params }: { params: { id: string } }) => {
   const ProfileAvatar = "https://i.ibb.co.com/KXNrJnf/avatar.jpg";
@@ -21,8 +22,8 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
       throw new Error(`Failed to fetch post: ${res.statusText}`);
     }
 
-    // const { data, previousPostId, nextPostId } = await res.json();
-    const { data } = await res.json();
+    const { data, previousPostId, postId } = await res.json();
+    // const { data } = await res.json();
 
     return (
       <div className="container mx-auto md:grid grid-cols-3 gap-8 py-10">
@@ -99,14 +100,11 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
             {/* Comment Count */}
             <p className="text-sm text-gray-500">
               Comments:{" "}
-              <span className="font-semibold">
-                {/* {data.comments.length} */}
-                length
-              </span>
+              <span className="font-semibold">{data?.comments?.length}</span>
             </p>
           </div>
           {/* Comments Section */}
-          {/* <Comments postId={params.id} /> */}
+          <CreateComment postId={params.id} />
           comments
         </div>
       </div>
