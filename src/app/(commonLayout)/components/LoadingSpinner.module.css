@@ -1,0 +1,55 @@
+/* LoadingSpinner.module.css */
+
+.spinnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full height of the viewport */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pawPrint {
+  font-size: 48px;
+  animation: bounce 1s infinite; /* Bouncing animation */
+}
+
+.bone {
+  font-size: 48px;
+  animation: rotate 1s infinite linear; /* Rotating animation */
+  margin-left: 20px;
+}
+
+.loadingText {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #555; /* Soft gray color */
+  font-weight: bold;
+}
+
+/* Keyframes for animations */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px); /* Move up */
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg); /* Complete rotation */
+  }
+}
