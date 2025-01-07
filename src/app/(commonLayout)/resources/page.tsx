@@ -8,24 +8,55 @@ const AboutUs = () => {
   return (
     <div className="bg-gradient-to-r from-blue-50 to-indigo-100 py-16 px-6 md:px-24">
       {/* Header Section */}
-      <header className="text-center mb-16">
-        <motion.h1
-          className="text-5xl font-extrabold text-gray-800 tracking-tight"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          About Us
-        </motion.h1>
-        <motion.p
-          className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          Learn more about our mission, vision, values, and the passionate
-          people behind the platform.
-        </motion.p>
+      <header
+        className="relative text-center mb-16 bg-gradient-to-r from-[#457e5e] via-[#58a77a] to-[#4f9d92] overflow-hidden py-20
+"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0 opacity-30">
+          <Image
+            src="https://i.ibb.co.com/XtTxgqP/pet7.jpg"
+            alt="Teamwork"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+
+        {/* Overlay */}
+        <div className="relative z-10">
+          <motion.h1
+            className="text-6xl font-extrabold text-white tracking-tight"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            About Us
+          </motion.h1>
+          <motion.p
+            className="mt-6 text-lg text-gray-200 max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Discover our mission, values, and the passionate people behind the
+            platform that inspires and supports pet lovers worldwide.
+          </motion.p>
+
+          {/* Call-to-Action Buttons */}
+          <motion.div
+            className="mt-8 flex justify-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <button className="bg-white hover:bg-gray-100 text-[#39835a] px-6 py-3 rounded-lg shadow-md transition duration-300">
+              Contact Us
+            </button>
+            <button className="bg-white hover:bg-gray-100 text-[#39835a] px-6 py-3 rounded-lg shadow-md transition duration-300">
+              Meet the Team
+            </button>
+          </motion.div>
+        </div>
       </header>
 
       {/* Company Overview */}
@@ -243,14 +274,6 @@ const AboutUs = () => {
           mission, collaborate, or simply share your story. Let's make a
           difference together!
         </motion.p>
-        <motion.button
-          className="bg-blue-600 text-white py-3 px-8 rounded-md hover:bg-blue-700 transition-colors duration-300"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          Contact Us
-        </motion.button>
       </section>
     </div>
   );
