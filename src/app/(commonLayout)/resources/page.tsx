@@ -274,7 +274,7 @@ const teamMembers = [
     name: "Emily Johnson",
     role: "Community Manager",
     bio: "Emily is responsible for building and nurturing a strong community of pet lovers and pet owners.",
-    image: "https://i.ibb.co/Gk2Hxcx/member-2.jpg",
+    image: "https://i.ibb.co.com/bFX30cy/customer.jpg",
   },
 ];
 
