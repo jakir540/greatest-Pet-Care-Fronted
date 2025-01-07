@@ -4,7 +4,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import loginImage from "../../../assets/loginImage.jpg";
 import axios from "axios";
 import Link from "next/link";
 
@@ -12,6 +11,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState(""); // State for email input
   const [password, setPassword] = useState(""); // State for password input
   const [error, setError] = useState(""); // State for handling error messages
+  const loginImage = "https://i.ibb.co.com/cyP349C/login-Image.jpg";
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -79,7 +79,12 @@ const LoginPage = () => {
             <div className="flex flex-col items-center space-y-6 text-center">
               {/* Logo Section */}
               <div className="mb-6">
-                <Image src="/logo.png" alt="Logo" width={150} height={50} />
+                <Image
+                  src="https://i.ibb.co.com/8jQ8GWq/logo.jpg"
+                  alt="Logo"
+                  width={150}
+                  height={50}
+                />
               </div>
 
               {/* Login Form */}

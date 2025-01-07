@@ -45,7 +45,9 @@ const BlogCart = ({ blog }: { blog: IBlog }) => {
     <div className="bg-white shadow-lg rounded-lg p-4 md:p-6 flex flex-col md:flex-row mb-6">
       <div className="md:w-1/3 w-full mb-4 md:mb-0">
         <Image
-          src={blog.coverImage}
+          src={
+            blog.coverImage.startsWith("http") ? blog.coverImage : ProfileAvatar
+          }
           alt={blog.title}
           width={150}
           height={150}

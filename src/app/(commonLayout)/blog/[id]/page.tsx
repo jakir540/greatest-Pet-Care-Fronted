@@ -22,8 +22,8 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
       throw new Error(`Failed to fetch post: ${res.statusText}`);
     }
 
-    const { data, previousPostId, postId } = await res.json();
-    // const { data } = await res.json();
+    // const { data, previousPostId, postId } = await res.json();
+    const { data } = await res.json();
 
     return (
       <div className="container mx-auto md:grid grid-cols-3 gap-8 py-10">
@@ -41,7 +41,7 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
           <Image
             height={500}
             width={500}
-            src={data.coverImage}
+            src={data?.coverImage}
             alt={data.title}
             className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg mb-6 shadow-md"
           />
@@ -54,7 +54,12 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
             {/* Profile Picture */}
             <Link href={`/profile/${data.author._id}`}>
               <Image
-                src={data.author.profilePicture || ProfileAvatar}
+                // src={data.author.profilePicture || ProfileAvatar}
+                src={
+                  data.author.profilePicture.startsWith("http")
+                    ? data.author.profilePicture
+                    : ProfileAvatar
+                }
                 alt={data.author.name}
                 width={48}
                 height={48}

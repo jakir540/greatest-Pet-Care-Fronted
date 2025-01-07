@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import trusPhoto from "../../../../../assets/trusPhoto2.jpg";
 import { useState } from "react";
 
 const TrustSection = () => {
@@ -99,7 +98,7 @@ const TrustSection = () => {
         {/* Image Content */}
         <div className="flex justify-center w-full lg:w-1/2">
           <Image
-            src={trusPhoto}
+            src="https://i.ibb.co.com/JrGjjhs/trus-Photo2.png"
             alt="Trustworthy pet content"
             width={800}
             height={600}

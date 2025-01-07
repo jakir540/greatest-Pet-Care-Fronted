@@ -7,9 +7,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
-// import nextImage from "../../../../assets/logo.png";
 import Image from "next/image";
-// import ThemeSwitcher from "../pages/ThemeSwitcher";
 
 const Navbar = () => {
   const image = "https://i.ibb.co.com/hsQ7Kb8/logo.png";

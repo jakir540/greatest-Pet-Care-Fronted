@@ -4,10 +4,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import registerImage from "../../../assets/loginImage.jpg";
 import axios from "axios";
 
 const Register = () => {
+  const registerImage = "https://i.ibb.co.com/cyP349C/login-Image.jpg";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,7 +68,12 @@ const Register = () => {
             <div className="flex flex-col items-center space-y-6 text-center">
               {/* Logo Section */}
               <div className="mb-6">
-                <Image src="/logo.png" alt="Logo" width={150} height={50} />
+                <Image
+                  src="https://i.ibb.co.com/8jQ8GWq/logo.jpg"
+                  alt="Logo"
+                  width={150}
+                  height={50}
+                />
               </div>
 
               {/* Registration Form */}

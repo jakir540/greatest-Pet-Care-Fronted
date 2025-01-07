@@ -20,6 +20,7 @@ const CreateComment = ({ postId }: { postId: string }) => {
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState<string | null>(null);
+  console.log(isModalOpen);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -108,6 +109,8 @@ const CreateComment = ({ postId }: { postId: string }) => {
       setCommentToDelete(null);
     }
   };
+
+  console.log(handleDeleteClick);
 
   const handleUpdateComment = async (e: React.FormEvent) => {
     e.preventDefault();

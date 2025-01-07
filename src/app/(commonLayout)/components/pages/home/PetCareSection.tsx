@@ -31,7 +31,7 @@ const PetCareSection = () => {
           <div className="relative">
             {/* Next.js Image component */}
             <Image
-              src="https://i.ibb.co/ZLCVM64/care-1.jpg" // Replace this with your actual image URL
+              src="https://i.ibb.co/ZLCVM64/care-1.jpg"
               width={500}
               height={500}
               alt="Pet and owner"
