@@ -1,7 +1,7 @@
-// "use client";
+/* eslint-disable @next/next/no-async-client-component */
+"use client";
 
 import { ThumbsDownIcon, ThumbsUp } from "lucide-react";
-
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -9,7 +9,8 @@ import LatestBlog from "../../components/pages/home/LatestBlog";
 import CreateComment from "../../components/CreateComment";
 
 const BlogDetails = async ({ params }: { params: { id: string } }) => {
-  const ProfileAvatar = "https://i.ibb.co.com/KXNrJnf/avatar.jpg";
+  console.log("iddddd", params.id);
+  const ProfileAvatar = "https://i.ibb.co/com/KXNrJnf/avatar.jpg";
   try {
     const res = await fetch(
       `https://greatest-pet-care-backend.vercel.app/api/post/${params.id}`,
@@ -22,95 +23,93 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
       throw new Error(`Failed to fetch post: ${res.statusText}`);
     }
 
-    // const { data, previousPostId, postId } = await res.json();
     const { data } = await res.json();
+    console.log("checked blogdetails", data);
 
     return (
       <div className="container mx-auto md:grid grid-cols-3 gap-8 py-10">
         {/* Sidebar with Category and Popular Blogs */}
         <div className="hidden md:block pr-8 py-8">
           <div className="sticky top-20 space-y-8">
-            {/* <CategorySlider /> */} category slider
             <LatestBlog />
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="col-span-2 bg-white shadow-lg rounded-lg px-6 py-8">
+        <div className="col-span-2 bg-white dark:bg-gray-900 shadow-lg rounded-xl px-6 py-8 transform hover:scale-100 transition-transform duration-300">
           {/* Blog Cover Image */}
           <Image
             height={500}
             width={500}
             src={data?.coverImage}
             alt={data.title}
-            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-lg mb-6 shadow-md"
+            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl mb-6 shadow-xl hover:scale-105 transition-all"
           />
           {/* Blog Title */}
-          <h1 className="text-4xl font-bold text-center mb-6 text-gray-900">
+          <h1 className="text-5xl font-bold text-center mb-6 text-gray-900 dark:text-white transition-all">
             {data.title}
           </h1>
           {/* Author Info */}
           <div className="flex items-center justify-center space-x-4 mb-6">
-            {/* Profile Picture */}
             <Link href={`/profile/${data.author._id}`}>
               <Image
-                // src={data.author.profilePicture || ProfileAvatar}
                 src={
-                  data.author.profilePicture.startsWith("http")
+                  data.author.profilePicture?.startsWith("http")
                     ? data.author.profilePicture
                     : ProfileAvatar
                 }
                 alt={data.author.name}
                 width={48}
                 height={48}
-                className="w-12 h-12 rounded-full border-2 border-gray-200 shadow"
+                className="w-12 h-12 rounded-full border-4 border-white shadow-md hover:shadow-xl transition-all"
               />
             </Link>
-
-            {/* Author Name and Date */}
             <div>
-              <p className="text-lg font-semibold text-gray-700">
+              <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
                 By <span className="text-pink-600">{data.author.name}</span>
               </p>
-              <p className="text-gray-500">
+              <p className="text-gray-500 dark:text-gray-400">
                 {format(new Date(data.createdAt), "MMMM dd, yyyy")}
               </p>
             </div>
           </div>
+
           {/* Post Content */}
-          <div className="text-gray-700 leading-relaxed space-y-6 mb-8">
+          <div className="text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 mb-8">
             <div dangerouslySetInnerHTML={{ __html: data.content }} />
           </div>
+
           {/* Additional Info */}
-          <div className="flex justify-between items-center text-sm text-gray-500 py-4 border-t border-b mb-6">
+          <div className="flex justify-between items-center text-sm text-gray-500 py-4 border-t border-b mb-6 dark:text-gray-400 dark:border-gray-700">
             <p className="font-semibold">Author: {data.author.name}</p>
             <p className="font-semibold">Category: {data.category}</p>
           </div>
+
           {/* Voting and Comment Count */}
           <div className="flex justify-between items-center mb-6">
             <div className="flex space-x-6">
               {/* Like Button */}
-              <div className="flex items-center space-x-1 text-gray-600 hover:text-blue-600 cursor-pointer">
+              <div className="flex items-center space-x-1 text-gray-600 hover:text-blue-600 cursor-pointer transition-all duration-300">
                 <ThumbsUp className="w-6 h-6" />
                 <span className="text-lg">{data.upvotes}</span>
               </div>
 
               {/* Dislike Button */}
-              <div className="flex items-center space-x-1 text-gray-600 hover:text-red-600 cursor-pointer">
+              <div className="flex items-center space-x-1 text-gray-600 hover:text-red-600 cursor-pointer transition-all duration-300">
                 <ThumbsDownIcon className="w-6 h-6" />
                 <span className="text-lg">{data.downvotes}</span>
               </div>
             </div>
 
             {/* Comment Count */}
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Comments:{" "}
               <span className="font-semibold">{data?.comments?.length}</span>
             </p>
           </div>
+
           {/* Comments Section */}
           <CreateComment postId={params.id} />
-          comments
         </div>
       </div>
     );
