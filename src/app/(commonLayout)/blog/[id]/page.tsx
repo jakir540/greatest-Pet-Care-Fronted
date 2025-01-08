@@ -9,7 +9,6 @@ import LatestBlog from "../../components/pages/home/LatestBlog";
 import CreateComment from "../../components/CreateComment";
 
 const BlogDetails = async ({ params }: { params: { id: string } }) => {
-  console.log("iddddd", params.id);
   const ProfileAvatar = "https://i.ibb.co/com/KXNrJnf/avatar.jpg";
   try {
     const res = await fetch(
@@ -24,7 +23,6 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
     }
 
     const { data } = await res.json();
-    console.log("checked blogdetails", data);
 
     return (
       <div className="container mx-auto md:grid grid-cols-3 gap-8 py-10">
@@ -36,7 +34,7 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-2 bg-white dark:bg-gray-900 shadow-lg rounded-xl px-6 py-8 transform hover:scale-100 transition-transform duration-300">
+        <div className="col-span-2 bg-white dark:bg-gray-900 shadow-lg rounded-xl px-6 py-8">
           {/* Blog Cover Image */}
           <Image
             height={500}
@@ -46,7 +44,7 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
             className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl mb-6 shadow-xl hover:scale-105 transition-all"
           />
           {/* Blog Title */}
-          <h1 className="text-5xl font-bold text-center mb-6 text-gray-900 dark:text-white transition-all">
+          <h1 className="text-5xl font-bold text-center mb-6 text-gray-900 dark:text-white">
             {data.title}
           </h1>
           {/* Author Info */}
@@ -61,7 +59,7 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
                 alt={data.author.name}
                 width={48}
                 height={48}
-                className="w-12 h-12 rounded-full border-4 border-white shadow-md hover:shadow-xl transition-all"
+                className="w-12 h-12 rounded-full border-4 border-white shadow-md hover:shadow-xl"
               />
             </Link>
             <div>
@@ -79,6 +77,27 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
             <div dangerouslySetInnerHTML={{ __html: data.content }} />
           </div>
 
+          {/* Additional Images (Gallery) */}
+          {data.images?.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+                More Images
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {data.images.map((img: string, index: number) => (
+                  <Image
+                    key={index}
+                    src={img}
+                    alt={`Supplemental Image ${index + 1}`}
+                    width={400}
+                    height={300}
+                    className="w-full h-64 object-cover rounded-lg shadow-md hover:scale-105 transition-all"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Additional Info */}
           <div className="flex justify-between items-center text-sm text-gray-500 py-4 border-t border-b mb-6 dark:text-gray-400 dark:border-gray-700">
             <p className="font-semibold">Author: {data.author.name}</p>
@@ -88,20 +107,15 @@ const BlogDetails = async ({ params }: { params: { id: string } }) => {
           {/* Voting and Comment Count */}
           <div className="flex justify-between items-center mb-6">
             <div className="flex space-x-6">
-              {/* Like Button */}
-              <div className="flex items-center space-x-1 text-gray-600 hover:text-blue-600 cursor-pointer transition-all duration-300">
+              <div className="flex items-center space-x-1 text-gray-600 hover:text-blue-600 cursor-pointer transition-all">
                 <ThumbsUp className="w-6 h-6" />
                 <span className="text-lg">{data.upvotes}</span>
               </div>
-
-              {/* Dislike Button */}
-              <div className="flex items-center space-x-1 text-gray-600 hover:text-red-600 cursor-pointer transition-all duration-300">
+              <div className="flex items-center space-x-1 text-gray-600 hover:text-red-600 cursor-pointer transition-all">
                 <ThumbsDownIcon className="w-6 h-6" />
                 <span className="text-lg">{data.downvotes}</span>
               </div>
             </div>
-
-            {/* Comment Count */}
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Comments:{" "}
               <span className="font-semibold">{data?.comments?.length}</span>
