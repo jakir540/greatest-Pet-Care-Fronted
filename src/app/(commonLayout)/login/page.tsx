@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState(""); // State for email input
   const [password, setPassword] = useState(""); // State for password input
   const [error, setError] = useState(""); // State for handling error messages
-  const loginImage = "https://i.ibb.co.com/cyP349C/login-Image.jpg";
+  const loginImage = "https://i.ibb.co/cyP349C/login-Image.jpg";
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -22,12 +22,12 @@ const LoginPage = () => {
   if (!isMounted) {
     return null; // Or a loading state if you prefer
   }
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevent form from reloading the page on submit
     setError(""); // Clear any previous errors before submitting
 
     try {
-      // Make the login request to the backend API
       const response = await axios.post(
         "https://greatest-pet-care-backend.vercel.app/api/user/login",
         {
@@ -36,125 +36,106 @@ const LoginPage = () => {
         }
       );
 
-      // Log the entire response object to see its structure
-      console.log("Full response from API:", response.data.data.remainingData);
       const token = response.data.data.token;
       const role = response.data.data.remainingData.role;
 
-      // Log to see what values are being extracted
-      console.log("Received token:", token); // Should log token value if correct
-      console.log("User role:", role); // Should log role value if correct
-
       if (token && role) {
-        // Save the token in local storage for authentication
         localStorage.setItem("authToken", token);
-        console.log("Token successfully stored in localStorage:", token);
 
-        // Redirect or handle navigation based on user role
         if (role === "admin") {
-          window.location.href = "/admin"; // Redirect to admin dashboard
+          window.location.href = "/admin";
         } else if (role === "user") {
-          window.location.href = "/"; // Redirect to user homepage
+          window.location.href = "/";
         } else {
-          console.error("Unknown user role:", role);
           throw new Error("Invalid user role");
         }
       } else {
         throw new Error("Missing token or role in the response");
       }
     } catch (error: any) {
-      // Log the error and show an error message in the UI
       const errorMessage = error.response?.data?.message || "Login failed";
-      setError(errorMessage); // Display error message in the form
-      console.error("Error during login:", errorMessage);
+      setError(errorMessage);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center px-6">
-      <div className="flex flex-col md:flex-row max-w-6xl w-full space-y-8 md:space-y-0 md:space-x-8">
-        {/* Left Side: Login Form */}
-        <div className="flex-1">
-          <div className="p-8 bg-white shadow-lg rounded-lg">
-            <div className="flex flex-col items-center space-y-6 text-center">
-              {/* Logo Section */}
-              <div className="mb-6">
-                <Image
-                  src="https://i.ibb.co.com/8jQ8GWq/logo.jpg"
-                  alt="Logo"
-                  width={150}
-                  height={50}
-                />
-              </div>
-
-              {/* Login Form */}
-              <h3 className="text-2xl font-semibold mb-6">
-                Access your account
+    <div className="min-h-screen flex flex-col md:flex-row">
+      {/* Left Side: Login Form */}
+      <div className="flex-1 flex justify-center items-center px-6 py-10 md:px-16">
+        <div className="w-full max-w-md">
+          <div className="bg-white p-8">
+            <div className="text-center mb-8">
+              <Image
+                src="https://i.ibb.co/8jQ8GWq/logo.jpg"
+                alt="Logo"
+                width={150}
+                height={50}
+                className="mx-auto rounded-lg"
+              />
+              <h3 className="text-2xl font-bold text-gray-800 mt-4">
+                Welcome Back!
               </h3>
+              <p className="text-gray-600 text-sm">
+                Manage your pet's care effortlessly.
+              </p>
+            </div>
 
-              {/* Input Fields */}
-              <form className="w-full" onSubmit={handleLogin}>
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)} // Bind email state
-                      required
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)} // Bind password state
-                      required
-                    />
-                  </div>
-                </div>
-                {/* Show error message if exists */}
-                {error && <h3 className="text-red-500 text-sm">{error}</h3>}
+            <form onSubmit={handleLogin} className="space-y-6">
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {error && <p className="text-red-500 text-sm">{error}</p>}
 
-                <button
-                  type="submit"
-                  className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Sign in
-                </button>
-              </form>
-
-              <p className="text-gray-500 mt-4">OR</p>
-
-              {/* Apple Button */}
-              <button className="w-full mt-2 border-2 border-gray-900 text-gray-900 font-bold py-2 rounded hover:bg-gray-200">
-                Continue with Apple
+              <button
+                type="submit"
+                className="w-full bg-[#015c43] text-white font-bold py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                Sign In
               </button>
+            </form>
 
-              <div className="flex justify-between w-full mt-4">
-                <Link href="/signup">
-                  <button className="bg-transparent text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded">
-                    Create account
-                  </button>
-                </Link>
-              </div>
+            <div className="flex items-center justify-between mt-6">
+              <Link
+                href="/signup"
+                className="text-blue-500 hover:underline text-sm"
+              >
+                Create account
+              </Link>
+              <Link href="#" className="text-sm text-gray-500 hover:underline">
+                Forgot password?
+              </Link>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Right Side: Image */}
-        <div className="hidden md:block flex-1">
-          <Image
-            src={loginImage}
-            alt="Manage your pet's care"
-            layout="responsive"
-            width={600}
-            height={600}
-            className="rounded-lg shadow-lg"
-          />
+      {/* Right Side: Full Page Image with Text */}
+      <div
+        className="flex-1 hidden md:flex justify-center items-center relative bg-cover bg-center"
+        style={{ backgroundImage: `url(${loginImage})` }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="relative z-10 text-center text-white px-6">
+          <h2 className="text-4xl font-bold mb-4">
+            Your Pet's Happiness, Our Priority
+          </h2>
+          <p className="text-lg max-w-md mx-auto">
+            Join our community to keep your furry friends healthy, happy, and
+            loved.
+          </p>
         </div>
       </div>
     </div>
